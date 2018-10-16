@@ -1,0 +1,28 @@
+.featured-card {
+    flex: 1;
+}
+.image-caption h4 {
+    margin: 0px;
+    font-size: 1em;
+}
+
+.image-caption {
+    margin: 1%;
+}
+
+.featured-image {
+    width: 100%;
+}
+
+.featured-image-container {
+    overflow: hidden;
+}
+
+.artworks-panel {
+    padding: 5% !important;
+}
+
+.artwork-caption h5 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 12px;
+}

@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Archivo+Black|Work+Sans');
+
+@media (max-width: 400px) {
+    .front-featured-container {
+      display: block;
+    }
+  }
+
+.page-container {
+    margin: 4%;
+}
+
+
+.section-header {
+    text-align: right;
+    font-size: 1.2em;
+    letter-spacing: 1.3px;
+    margin: 3%;
+}

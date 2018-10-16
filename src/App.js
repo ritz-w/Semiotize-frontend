@@ -1,28 +1,35 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faLaptop, faFileUpload } from '@fortawesome/free-solid-svg-icons'
 import './App.css';
+import Page from './containers/Page'
+import { fetchUserImages } from './actions/userImageActions'
 
 class App extends Component {
+
+  componentDidMount() {
+    this.props.fetchUserImages()
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Page />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    userImages: state.userImages
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchUserImages: () => dispatch(fetchUserImages())
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App);

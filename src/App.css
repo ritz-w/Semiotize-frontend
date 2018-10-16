@@ -30,3 +30,31 @@
     transform: rotate(360deg);
   }
 }
+
+button {
+  font-family: 'Work Sans', sans-serif;
+  padding: 5px;
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  border-right: 3px solid black;
+  border-bottom: 3px solid black;
+}
+
+button:hover {
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+p {
+  font-family: 'Work Sans', sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Archivo Black', sans-serif;
+
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  font-family: 'Work Sans', sans-serif;
+  font-size: 14; /* Firefox */
+}
