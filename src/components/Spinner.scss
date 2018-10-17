@@ -1,0 +1,72 @@
+$dot-size: 1em;
+$duration: 3000ms;
+$container-size: $dot-size * 10;
+$dot-map: ( a:0, b:1, c:2, d:3, e:4, f:5, g:6, h:7);
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  background: white;
+  padding: 5%;
+}
+
+.loading-text {
+  margin-top: 5%;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.spin-container {
+  width: $container-size;
+  height: $container-size;
+  position: relative;
+  background: royalblue;
+  border-radius: 50%;
+
+  .dot {
+    background: darkred;
+    content: "";
+    border-radius: $dot-size * 0.5;
+    margin-top: $dot-size * -0.5;
+    margin-left: auto;
+    margin-right: auto;
+    width: $dot-size;
+    height: $dot-size;
+   
+    animation-name: bounce;
+    animation-duration: $duration;
+    animation-iteration-count: infinite;
+    transition-timing-function:  cubic-bezier(0, 0.99, 0, 0.1);
+  }
+}
+
+.container-dot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+@each $dot, $i in $dot-map {
+  .dot-#{$dot} {
+    transform: rotate(#{-360 / length($dot-map) * $i * 0.5}deg);
+    .dot {
+      animation-delay: -$duration / length($dot-map) * 0.5 * $i;
+    }
+  }
+}
+
+@keyframes bounce {
+  0%, 100%   {
+    transform: translatey(0);
+  }
+  50% {
+    transform: translatey($container-size);
+  }
+}
+

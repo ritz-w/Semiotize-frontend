@@ -1,20 +1,17 @@
-export default (state = [], action) => {
+export default (state = {allUserImages: [], currentImage: "", currentPage: "Front", isLoading: false}, action) => {
     switch (action.type) {
+      case "LOADING_USER_IMAGES" :
+      console.log(action)
+      return state = {...state, isLoading: true};
       case "FETCH_USER_IMAGES" :
       console.log(action)
-      return action.payload;
-      // case "REMOVE_QUOTE" :
-      // return state.filter(quote => quote.id !== action.quoteId)
-      // case "UPVOTE_QUOTE":
-      // let foundQuote = state.find(quote => quote.id === action.quoteId)
-      // foundQuote.votes += 1
-      // return state;
-      // case "DOWNVOTE_QUOTE":
-      // let foundDownQuote = state.find(quote => quote.id === action.quoteId)
-      // if (foundDownQuote.votes > 0) {
-      //   foundDownQuote.votes -= 1
-      // }
-      // return state;
+      return state = {...state, allUserImages: action.payload, isLoading: false};
+      case "SET_USER_IMAGE" :
+      console.log(action)
+      return state = {...state, currentImage: action.payload};
+      case "CHANGE_PAGE" :
+      console.log(action)
+      return state = {...state, currentPage: action.payload};
       default :
       return state;
     }

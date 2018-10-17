@@ -1,0 +1,6 @@
+.gallery-container {
+    display: grid;
+    grid-row-gap: 50px;
+    grid-column-gap: 50px;
+    grid-template-columns: 33% auto auto;
+}

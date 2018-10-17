@@ -3,7 +3,7 @@
 }
 .image-caption h4 {
     margin: 0px;
-    font-size: 1em;
+    font-size: 1.1em;
 }
 
 .image-caption {
@@ -12,10 +12,13 @@
 
 .featured-image {
     width: 100%;
+    max-height: inherit;
+    object-fit: contain;
+    border: 1px solid black;
 }
 
 .featured-image-container {
-    overflow: hidden;
+    max-height: 300px;
 }
 
 .artworks-panel {

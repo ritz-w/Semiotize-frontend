@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, Divider } from 'semantic-ui-react'
 import './PageHeader.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Spinner from '../components/Spinner'
 
 
 export default class PageHeader extends Component {
@@ -14,7 +14,8 @@ export default class PageHeader extends Component {
             userImageTitle: "",
             userImageURL: "",
             userFilePath: "",
-            uploadedFileCloudinaryUrl: ""
+            uploadedFileCloudinaryUrl: "",
+            isLoading: false
         }
     }
 
@@ -37,7 +38,7 @@ export default class PageHeader extends Component {
     handleImageUpload(file) {
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("upload_preset", "jl9vvi5n"); // Replace the preset name with your own
+        formData.append("upload_preset", "cef91ja4"); // Replace the preset name with your own
     
         return fetch("https://api.cloudinary.com/v1_1/dt8wmjdja/image/upload", {
           method: 'POST',
@@ -45,10 +46,11 @@ export default class PageHeader extends Component {
         })
           .then(response => response.json())
           .then(data => {
+              console.log(data)
             if (data.secure_url !== '') {
               this.setState({
-                uploadedFileCloudinaryUrl: data.secure_url
-              }, () => console.log(this.state.uploadedFileCloudinaryUrl));
+                uploadedFileCloudinaryUrl: data.eager[0].secure_url
+              }, () => console.log(data));
             }
           })
           .catch(err => console.error(err))
@@ -56,6 +58,7 @@ export default class PageHeader extends Component {
 
     handleImageSubmit = (e) => {
         e.preventDefault()
+        this.setState({isLoading: true}, () => console.log(this.state.isLoading))
         this.handleImageUpload(this.state.userFilePath)
         .then(() => {
             let setImage = this.state.userFilePath !== "" ? this.state.uploadedFileCloudinaryUrl : this.state.userImageURL
@@ -70,41 +73,53 @@ export default class PageHeader extends Component {
                 })
             })
             .then(res => {
+                this.setState({isLoading: false}, () => console.log(this.state.isLoading))
                 this.handleClose()
                 return res.json()
             })
-            .then(data => console.log(data))
+            .then(data => this.props.setUserImage(data))
             .then(() => this.props.changePage("Presentation"))
+            .then(() => this.props.fetchUserImages())
         })
     }
 
     render() {
         return (
             <div className="page-header">
-                <div className="title-container">
+                <div className="title-container" onClick={() => this.props.changePage("Front")}>
                     <h1 className="site-title">Semiotize</h1>
                     <h4 className="site-subtitle">Uncovering the shared symbolism between your photos and the history of photography.</h4>
                 </div>
                 <div className="menu-container">
                     <Modal trigger={<button onClick={this.handleOpen} className="upload-button">Upload</button>} open={this.state.modalOpen} onClose={this.handleClose} >
                     <Modal.Content>
-                        <h3 className="upload-message">Please select an image from your computer, or paste a URL to your image.</h3>
-                            <form onSubmit={this.handleImageSubmit}>
-                            <h4>Name</h4>
-                                <input type="text" onChange={(e) => this.handleChange(e, "userName")} placeholder="Your Name" className="photo-input"/>
-                            <h4>Your Location</h4>
-                                <input type="text" onChange={(e) => this.handleChange(e, "userLocation")} placeholder="Your location or photo location..." className="photo-input" />
-                                <h4>Image Title</h4>
-                                <input type="text" onChange={(e) => this.handleChange(e, "userImageTitle")} placeholder="Give a title to your image!" className="photo-input" />
-                            <h4>Image URL</h4>
-                                <input type="text" onChange={(e) => this.handleChange(e, "userImageURL")} placeholder="https://www.image.com/image.jpg" className="photo-url-input" /><br/>
-                            <h4>Upload from File</h4>
-                            <input type="file" name="pic" onChange={this.handleFileChange} />
-                        <Divider />
-                            <div className="submit-container">
-                                <button type="submit">Submit</button>
+                        {this.state.isLoading ? (
+                            <div className="spinner-container">
+                                <Spinner message="Uploading your image..."/> 
                             </div>
-                        </form>
+                        ) : (
+                            <div>
+                                <h3 className="upload-message">Please select an image from your computer, or paste a URL to your image.</h3>
+                                    <form onSubmit={this.handleImageSubmit}>
+                                    <h4>Name</h4>
+                                        <input type="text" onChange={(e) => this.handleChange(e, "userName")} placeholder="Your Name" className="photo-input"/>
+                                    <h4>Your Location</h4>
+                                        <input type="text" onChange={(e) => this.handleChange(e, "userLocation")} placeholder="Your location or photo location..." className="photo-input" />
+                                        <h4>Image Title</h4>
+                                        <input type="text" onChange={(e) => this.handleChange(e, "userImageTitle")} placeholder="Give a title to your image!" className="photo-input" />
+                                    <h4>Image URL</h4>
+                                        <input type="text" onChange={(e) => this.handleChange(e, "userImageURL")} placeholder="https://www.image.com/image.jpg" className="photo-url-input" /><br/>
+                                    <h4>Upload from File</h4>
+                                    <input type="file" name="pic" onChange={this.handleFileChange} />
+                                <Divider />
+                                    <div className="submit-container">
+                                        <button type="submit">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        )}
+
+                        
                     </Modal.Content>
                     </Modal>
                     <div class="dropdown">
@@ -112,36 +127,11 @@ export default class PageHeader extends Component {
                         <div class="dropdown-content">
                             <div className="menu-element" onClick={() => this.props.changePage("Front")}><p>Home</p></div>
                             <div className="menu-element" onClick={() => this.props.changePage("About")}><p>About</p></div>
-                            <div className="menu-element"><p>Gallery</p></div>
+                            <div className="menu-element" onClick={() => this.props.changePage("Gallery")}><p>Gallery</p></div>
                         </div>
                     </div>
                 </div>
             </div>
-        //     <Grid>
-        //     <Grid.Row>
-        //       <Grid.Column width={10}>
-        //         <div>
-        //             <h1 className="site-title">Semiotize</h1><br /> <br />
-        //         </div>
-
-        //       </Grid.Column>
-        //       <Grid.Column width={6} floated='right'>
-        //             <Grid columns='equal'>
-        //                 <Grid.Column>
-        //                 <Button icon labelPosition='left'>
-        //                     <Icon name='arrow alternate circle up outline' />
-        //                     Upload
-        //                 </Button>
-        //                 </Grid.Column>
-        //                 <Grid.Column>
-        //                     <Menu compact>
-        //                     <Menu.Item as='a'>Menu</Menu.Item>
-        //                     </Menu> 
-        //                 </Grid.Column>
-        //             </Grid>
-        //         </Grid.Column>
-        //     </Grid.Row>
-        // </Grid>
         )
     }
 }

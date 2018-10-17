@@ -88,3 +88,9 @@
 .menu-element {
     margin: 15px 0px;
 }
+
+.spinner-container {
+    text-align: center;
+    width: 100%;
+    height: 300px;
+}

@@ -12,8 +12,26 @@
 
 
 .section-header {
-    text-align: right;
+    text-align: left;
     font-size: 1.2em;
-    letter-spacing: 1.3px;
+    letter-spacing: 1px;
     margin: 3%;
 }
+
+.intro-box {
+    width: 70%;
+    margin-left: 15%;
+    margin-bottom: 10%;
+    padding: 5%;
+    font-size: 1.2em;
+    border: 2px solid black;
+    /* background: linear-gradient(60deg, red, yellow, red, yellow, red);} */
+}
+.intro-box h3 {
+    letter-spacing: 1px;
+    /* -webkit-background-clip: text;
+    background-clip: text; */
+    color: black;
+    }
+
+

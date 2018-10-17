@@ -1,0 +1,78 @@
+.presentation-container {
+    margin: 3%;
+}
+
+.presentation-main-image {
+    border: 1px solid black;
+    width: 100%;
+    display: block;
+}
+
+.presentation-main-caption {
+    text-align: center;
+    font-size: 15px;
+    display: block;
+    margin: 3%;
+}
+
+.presentation-main-caption h3 {
+    margin: 2px;
+}
+
+.motif-percentage-bars-container {
+    width: 80%;
+    margin-left: 10%;
+}
+
+.artworks-grid {
+    padding-left: 8% !important;
+}
+
+.artwork-caption {
+    padding: 10px;
+    font-size: 12px;
+}
+
+.artwork-caption h5, p {
+    margin-bottom: 2px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: #000000;
+    color: white;
+    overflow-y: auto;
+}
+
+#style-8::-webkit-scrollbar-track
+{
+	border: 1px solid black;
+	background-color: #F5F5F5;
+}
+
+#style-8::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-8::-webkit-scrollbar-thumb
+{
+	background-color: #000000;	
+}
+
+.bio-popper {
+    border: 1px solid black;
+    padding: 5%;
+    z-index: 1;
+    background: white;
+}

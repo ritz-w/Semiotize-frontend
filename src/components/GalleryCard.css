@@ -1,0 +1,32 @@
+.gallery-card-container {
+    width: 100%;
+    text-align: center;
+    border: 1px solid black;
+}
+
+
+.gallery-card-image-container {
+    width: 90%;
+    margin: 5% 5% 0% 5%;
+    background-color: black;
+}
+
+.gallery-card-image-container img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    border: 1px solid black;
+}
+
+.gallery-card-caption {
+    padding: 5%;
+}
+.gallery-card-caption h5 {
+    font-family: 'Archivo Black', sans-serif;
+    text-align: center;
+    line-height: 0px;
+}
+
+.gallery-card-tags {
+    padding: 5% 10%;
+}

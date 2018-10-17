@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import './FeaturedCard.css'
-import ExifOrientationImg from 'react-exif-orientation-img'
 import { Grid, Image } from 'semantic-ui-react'
 
 
 
 export default class FeaturedCard extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            orientation: undefined
-        }
+    handleClick = (e) => {
+        this.props.setUserImage(this.props.userImage)
+        this.props.changePage("Presentation")
+    }
+
+    truncateString = (string) => {
+        const splitString = string.split(" ")
+        const shorterString = splitString.slice(0, 10).join(" ")
+        return shorterString !== string ? shorterString + "..." : string
     }
 
     renderArtworks = () => {
@@ -22,7 +25,7 @@ export default class FeaturedCard extends Component {
                 </Grid.Column>
                 <Grid.Column>
                     <div className="artwork-caption">
-                        <h5>{artwork.title}</h5>
+                        <h5>{this.truncateString(artwork.title)}</h5>
                         <p>{artwork.artist.name}{artwork.date ? ", " + artwork.date : null}</p>
                     </div>
                 </Grid.Column>
@@ -33,9 +36,9 @@ export default class FeaturedCard extends Component {
 
     render() {
         return (
-        <div className="featured-card">
+        <div className="featured-card" onClick={this.handleClick}>
         <div className="featured-image-container">
-            <ExifOrientationImg src={this.props.userImage.user_image_url} style={{ transformOrigin: '10% 100% 10px' }} className="featured-image" id={`featured-image-${this.props.userImage.id}`} />
+            <Image centered src={this.props.userImage.user_image_url} fluid className="featured-image" id={`featured-image-${this.props.userImage.id}`} />
         </div>
             <div className="image-caption">
                 <h4>{this.props.userImage.image_title}</h4>
