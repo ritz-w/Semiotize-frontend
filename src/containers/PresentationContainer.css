@@ -28,12 +28,12 @@
     padding-left: 8% !important;
 }
 
-.artwork-caption {
+.sub-artwork-caption {
     padding: 10px;
-    font-size: 12px;
+    font-size: 1em;
 }
 
-.artwork-caption h5, p {
+.sub-artwork-caption h5, p {
     margin-bottom: 2px;
 }
 

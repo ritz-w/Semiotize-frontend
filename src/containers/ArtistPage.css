@@ -1,0 +1,10 @@
+.slider-image {
+    max-height: 500px;
+    object-fit: contain;
+}
+
+.motif-container {
+    width: 80%;
+    margin-left: 10%;
+    padding: 5%;
+}

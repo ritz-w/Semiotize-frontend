@@ -13,16 +13,16 @@
 
 .section-header {
     text-align: left;
-    font-size: 1.2em;
+    font-size: 1.3em;
     letter-spacing: 1px;
     margin: 3%;
 }
 
 .intro-box {
-    width: 70%;
-    margin-left: 15%;
+    width: 60%;
+    margin-left: 20%;
     margin-bottom: 10%;
-    padding: 5%;
+    padding: 2%;
     font-size: 1.2em;
     border: 2px solid black;
     /* background: linear-gradient(60deg, red, yellow, red, yellow, red);} */

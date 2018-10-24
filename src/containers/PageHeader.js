@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Modal, Divider } from 'semantic-ui-react'
 import './PageHeader.css'
+import { Link } from 'react-router-dom'
+import { withRouter } from "react-router";
 import Spinner from '../components/Spinner'
 
 
-export default class PageHeader extends Component {
+class PageHeader extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -15,7 +17,9 @@ export default class PageHeader extends Component {
             userImageURL: "",
             userFilePath: "",
             uploadedFileCloudinaryUrl: "",
-            isLoading: false
+            isLoading: false,
+            redirectId: "",
+            uploadingMessage: ""
         }
     }
 
@@ -35,11 +39,11 @@ export default class PageHeader extends Component {
         }, () => console.log(this.state))
     }
 
-    handleImageUpload(file) {
+    handleImageUpload = (file) => {
         const formData = new FormData();
         formData.append("file", file);
         formData.append("upload_preset", "cef91ja4"); // Replace the preset name with your own
-    
+        this.setState({uploadingMessage: "Starting upload..."})
         return fetch("https://api.cloudinary.com/v1_1/dt8wmjdja/image/upload", {
           method: 'POST',
           body: formData
@@ -50,7 +54,8 @@ export default class PageHeader extends Component {
             if (data.secure_url !== '') {
               this.setState({
                 uploadedFileCloudinaryUrl: data.eager[0].secure_url
-              }, () => console.log(data));
+              }, () => this.setState({uploadingMessage: "Photo Uploading..."})
+              );
             }
           })
           .catch(err => console.error(err))
@@ -58,7 +63,7 @@ export default class PageHeader extends Component {
 
     handleImageSubmit = (e) => {
         e.preventDefault()
-        this.setState({isLoading: true}, () => console.log(this.state.isLoading))
+        this.setState({isLoading: true}, () => this.setState({uploadingMessage: "Matching in database..."}))
         this.handleImageUpload(this.state.userFilePath)
         .then(() => {
             let setImage = this.state.userFilePath !== "" ? this.state.uploadedFileCloudinaryUrl : this.state.userImageURL
@@ -73,29 +78,31 @@ export default class PageHeader extends Component {
                 })
             })
             .then(res => {
-                this.setState({isLoading: false}, () => console.log(this.state.isLoading))
+                this.setState({isLoading: false}, () => this.setState({uploadingMessage: "Matching Completed."}))
                 this.handleClose()
                 return res.json()
             })
-            .then(data => this.props.setUserImage(data))
-            .then(() => this.props.changePage("Presentation"))
-            .then(() => this.props.fetchUserImages())
+            .then(data => this.props.history.push(`/gallery/${data.id}`))
+            .then(() => this.props.fetchFirstThree())
         })
     }
+
 
     render() {
         return (
             <div className="page-header">
-                <div className="title-container" onClick={() => this.props.changePage("Front")}>
-                    <h1 className="site-title">Semiotize</h1>
-                    <h4 className="site-subtitle">Uncovering the shared symbolism between your photos and the history of photography.</h4>
-                </div>
+                <Link to="/">
+                    <div className="title-container">
+                        <h1 className="site-title">Semiotize</h1>
+                        <h4 className="site-subtitle">Uncovering the shared symbolism between your photos and the history of photography.</h4>
+                    </div>
+                </Link>
                 <div className="menu-container">
                     <Modal trigger={<button onClick={this.handleOpen} className="upload-button">Upload</button>} open={this.state.modalOpen} onClose={this.handleClose} >
                     <Modal.Content>
                         {this.state.isLoading ? (
                             <div className="spinner-container">
-                                <Spinner message="Uploading your image..."/> 
+                                <Spinner message={this.state.uploadingMessage}/> 
                             </div>
                         ) : (
                             <div>
@@ -122,12 +129,13 @@ export default class PageHeader extends Component {
                         
                     </Modal.Content>
                     </Modal>
-                    <div class="dropdown">
+                    <div className="dropdown">
                         <button className="menu-button">Menu ▾ </button>
-                        <div class="dropdown-content">
-                            <div className="menu-element" onClick={() => this.props.changePage("Front")}><p>Home</p></div>
-                            <div className="menu-element" onClick={() => this.props.changePage("About")}><p>About</p></div>
-                            <div className="menu-element" onClick={() => this.props.changePage("Gallery")}><p>Gallery</p></div>
+                        <div className="dropdown-content">
+                            <Link to='/'><div className="menu-element"><p>Home</p></div></Link>
+                            <Link to='/about'><div className="menu-element"><p>About</p></div></Link>
+                            <Link to='/gallery'><div className="menu-element"><p>All Submissions</p></div></Link>
+                            <Link to='/collections'><div className="menu-element"><p>Explore the Collection</p></div></Link>
                         </div>
                     </div>
                 </div>
@@ -135,3 +143,5 @@ export default class PageHeader extends Component {
         )
     }
 }
+
+export default withRouter(PageHeader)

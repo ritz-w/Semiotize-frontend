@@ -4,40 +4,26 @@ import "./Spinner.scss"
 const Spinner = (props) => {
     return (
         <div class="wrapper">
-        <div class="flex-center">
-            <div class="spin-container">
-                <div class="container-dot dot-a">
-                <div class="dot"></div>
-                </div>
+            <div class="flex-center">
+                <div class="content">
+                    <svg className="spinner-canvas" viewBox="0 0 800 300">
 
-                <div class="container-dot dot-b">
-                <div class="dot"></div>
-                </div>
-                <div class="container-dot dot-c">
-                <div class="dot"></div>
-                </div>
+                        <symbol id="s-text">
+                            <text textAnchor="middle" x="50%" y="50%" dy=".35em">
+                                {props.message}
+                            </text>
+                        </symbol>
 
-                <div class="container-dot dot-d">
-                <div class="dot"></div>
-                </div>
+                <use xlinkHref="#s-text" class="text"></use>
+                <use xlinkHref="#s-text" class="text"></use>
+                <use xlinkHref="#s-text" class="text"></use>
+                <use xlinkHref="#s-text" class="text"></use>
+                <use xlinkHref="#s-text" class="text"></use>
 
-                <div class="container-dot dot-e">
-                <div class="dot"></div>
-                </div>
 
-                <div class="container-dot dot-f">
-                <div class="dot"></div>
-                </div>
-                <div class="container-dot dot-g">
-                <div class="dot"></div>
-                </div>
-
-                <div class="container-dot dot-h">
-                <div class="dot"></div>
+                    </svg>
                 </div>
             </div>
-        </div>
-        <p class="loading-text">{props.message}</p>
     </div>
 
     )

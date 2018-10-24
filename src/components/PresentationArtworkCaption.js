@@ -25,13 +25,13 @@ export default class PresentationArtworkCaption extends Component {
                                 {({ ref }) => (
                                     <div ref={ref} onMouseEnter={() => this.setState({nameHovered: true})} onMouseLeave={() => this.setState({nameHovered: false})}>
                                         <h5>{this.props.artwork.title} {this.props.artwork.date > 0 ? `(${this.props.artwork.date})` : null} </h5>
-                                        <p>{this.props.artwork.artist.name}{this.props.artwork.artist.nationality ? `, (${this.props.artwork.artist.nationality})` : null}</p>
+                                        <p>{this.props.artwork.artist.name}{this.props.artwork.artist.nationality ? ` (${this.props.artwork.artist.nationality})` : null}</p>
                                         <p>{this.props.artwork.collection ? this.props.artwork.collection : null} </p>
                                     </div> 
                                 )}
                                 </Reference>
                                     {this.state.nameHovered ? (
-                                        <Popper placement="bottom">
+                                        <Popper placement="bottom" >
                                         {({ ref, style, placement, arrowProps }) => (
                                             <div ref={ref} style={{...style, zIndex: 1}} data-placement={placement}>
                                             <div className="bio-popper">
@@ -46,7 +46,7 @@ export default class PresentationArtworkCaption extends Component {
                 ) : (
                     <div>
                         <h5>{this.props.artwork.title} {this.props.artwork.date > 0 ? `(${this.props.artwork.date})` : null} </h5>
-                        <p>{this.props.artwork.artist.name} {this.props.artwork.artist.nationality ? `, (${this.props.artwork.artist.nationality})` : null}</p>
+                        <p>{this.props.artwork.artist.name}{this.props.artwork.artist.nationality ? ` (${this.props.artwork.artist.nationality})` : null}</p>
                         <p>{this.props.artwork.collection ? this.props.artwork.collection : null} </p>
                     </div>
                 )}

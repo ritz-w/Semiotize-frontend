@@ -5,10 +5,6 @@ import { Grid, Image } from 'semantic-ui-react'
 
 
 export default class FeaturedCard extends Component {
-    handleClick = (e) => {
-        this.props.setUserImage(this.props.userImage)
-        this.props.changePage("Presentation")
-    }
 
     truncateString = (string) => {
         const splitString = string.split(" ")
@@ -21,7 +17,7 @@ export default class FeaturedCard extends Component {
             return (
                 <Grid.Row divided>
                 <Grid.Column>
-                    <Image size="small" src={artwork.image_url} alt={artwork.title} />
+                    <Image centered size="small" src={artwork.image_url} alt={artwork.title} />
                 </Grid.Column>
                 <Grid.Column>
                     <div className="artwork-caption">
@@ -36,7 +32,7 @@ export default class FeaturedCard extends Component {
 
     render() {
         return (
-        <div className="featured-card" onClick={this.handleClick}>
+        <div className="featured-card">
         <div className="featured-image-container">
             <Image centered src={this.props.userImage.user_image_url} fluid className="featured-image" id={`featured-image-${this.props.userImage.id}`} />
         </div>

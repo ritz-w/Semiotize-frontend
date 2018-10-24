@@ -30,3 +30,13 @@
 .gallery-card-tags {
     padding: 5% 10%;
 }
+
+.tag-link:hover {
+    text-decoration: underline;
+}
+
+@media only screen and (max-width: 600px)  {
+    .gallery-card-container {
+        margin-bottom: 5%;
+    }
+}

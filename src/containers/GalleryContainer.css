@@ -1,6 +1,23 @@
+
+
 .gallery-container {
     display: grid;
     grid-row-gap: 50px;
     grid-column-gap: 50px;
-    grid-template-columns: 33% auto auto;
+    grid-template-columns: 30% 30% 30%;
+}
+
+.gallery-search-box {
+    padding-bottom: 2%;
+}
+
+.search-by-dropdown {
+    padding: 2%;
+}
+
+@media only screen and (max-width: 600px)  {
+    .gallery-container {
+        display: block;
+        padding: 5%;
+    }
 }

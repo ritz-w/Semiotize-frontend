@@ -5,23 +5,37 @@ import FeaturedCard from '../components/FeaturedCard'
 import Spinner from '../components/Spinner'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle, faEye } from '@fortawesome/free-solid-svg-icons'
-import { setUserImage, changePage } from '../actions/userImageActions'
+import { Link } from 'react-router-dom';
 
 class FrontFeaturedContainer extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            introShowing: true
+            introShowing: true,
+            isBigScreen: false
         }
     }
 
+    componentDidMount() {
+        this.updatePredicate();
+        window.addEventListener("resize", this.updatePredicate);
+      }
 
-    renderSampleThree = () => {
-        return this.props.userImages.slice(this.props.userImages.length - 3, this.props.userImages.length).map( userImage => {
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updatePredicate);
+      }
+    
+    updatePredicate = () => {
+        this.setState({ isBigScreen: window.innerWidth > 1600 });
+      }
+
+
+    renderSample = (numToRender) => {
+        return this.props.userImages.slice(this.props.userImages.length - numToRender, this.props.userImages.length).map( userImage => {
             return (
                 <Grid.Column>
-                  <FeaturedCard userImage={userImage} setUserImage={this.props.setUserImage} changePage={this.props.changePage} />
+                  <Link to={`/gallery/${userImage.id}`}><FeaturedCard userImage={userImage} /></Link>
                 </Grid.Column>
             )
         })
@@ -32,23 +46,26 @@ class FrontFeaturedContainer extends Component {
                 <Divider />
                 <h2 className="section-header">
                     {this.state.introShowing ? <FontAwesomeIcon icon={faTimesCircle} onClick={() => this.setState({introShowing: false})} /> : <FontAwesomeIcon icon={faEye} onClick={() => this.setState({introShowing: true})} />}
-                    <span> Introduction </span>
+                     <span> Introduction</span>
                 </h2>
                     {this.state.introShowing ? 
                     (<div className="intro-box">
                         <h3>Semiotics is the study of signs and symbols and their use or interpretation.</h3>
-                        <p>This project was inspired by the importance of semiotics in understanding the history of photography.</p><br />
-                        <p>It allows you to upload a photograph, and using image recognition technology, matches it to a database of 300 works of contemporary and historic photography, finding similar signs and symbols that have been used. In doing so, you can compare how the objects and motifs in your photograph have been used by other photographers through different expressive means, styles, and time periods.</p>
+                        <p>This project was inspired by the role of semiotics in understanding the history of photography.</p><br />
+                        <p>It takes a photograph that you upload, and using image recognition technology, matches it to over 500 works of contemporary and historic photography, finding common signs and symbols that have been used. In doing so, you can compare how the objects and motifs in your photograph have been used by other photographers in different styles, time periods, and contexts.</p>
                         <br />
-                        <p>We invite you to welcome the generative spontaneity of artificial intelligence - even when it returns an unexpected result, can you see a connection? </p>
+                        <p>We invite you to consider the generative spontaneity of artificial intelligence - even when unexpected results are returned, can you see a connection? </p>
                     </div>)
                     : null }
                 <h2 className="section-header">Most Recent Uploads</h2>
-            <Grid stackable columns='three'>
-                <Grid.Row>
-                {this.props.isLoading ? <Spinner message="Loading Images..."/> : this.renderSampleThree()}
-                </Grid.Row>
-            </Grid>
+                {this.props.isLoading ? <Spinner message="Loading Images..."/> : (
+                    <Grid stackable columns={this.state.isBigScreen ? 'four' : 'three'}>
+                        <Grid.Row>
+                        {this.state.isBigScreen ? this.renderSample(4) : this.renderSample(3)}
+                        </Grid.Row>
+                    </Grid>
+                    )
+                }
             </div>
         )
     }
@@ -56,17 +73,10 @@ class FrontFeaturedContainer extends Component {
 
 const mapStateToProps = (state) => {
     return {
-      userImages: state.userImages.allUserImages,
-      currentImage: state.userImages.currentImage,
-      isLoading: state.userImages.isLoading
+      userImages: state.userImages.threeUserImages,
+      isLoading: state.userImages.threeLoading
     }
   }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setUserImage: (currentImage) => dispatch(setUserImage(currentImage)),
-        changePage: (currentPage) => dispatch(changePage(currentPage))
-    }
-}
 
-  export default connect(mapStateToProps, mapDispatchToProps)(FrontFeaturedContainer)
+  export default connect(mapStateToProps)(FrontFeaturedContainer)

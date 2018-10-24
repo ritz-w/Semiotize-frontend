@@ -1,25 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PageHeader from './PageHeader';
 import GalleryContainer from './GalleryContainer';
 import FrontFeaturedContainer from './FrontFeaturedContainer';
+import CollectionsContainer from './CollectionsContainer'
+import ArtistPage from './ArtistPage'
 import PresentationContainer from './PresentationContainer';
+import PageHeader from './PageHeader';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import About from '../components/About'
-import { changePage, setUserImage, fetchUserImages } from '../actions/userImageActions'
 import './Page.css'
 
 class Page extends Component {
 
-
-    renderPage = () => {
-        return this.props.currentPage === "Front" ? <FrontFeaturedContainer /> : this.props.currentPage === "Gallery"  ? <GalleryContainer /> : this.props.currentPage === "About" ? <About /> : <PresentationContainer />
-    }
-
     render(){
         return (
+            
             <div className="page-container">
-                <PageHeader changePage={this.props.changePage} setUserImage={this.props.setUserImage} fetchUserImages={this.props.fetchUserImages} />
-                {this.renderPage()}
+                <BrowserRouter>
+                    <div>
+                    <PageHeader fetchFirstThree={this.props.fetchFirstThree} />
+                        <Switch>
+                        <Route exact path="/gallery" component={() => <GalleryContainer userImages={this.props.userImages} />}/>
+                        <Route exact path={`/gallery/:imgId`} component={(routerProps) => <PresentationContainer userImages={this.props.userImages} {...routerProps}/>}/>
+                        <Route exact path="/about" component={About}/>
+                        <Route exact path="/collections" component={CollectionsContainer}/>
+                        <Route exact path="/artists/:artistId" component={(routerProps) => <ArtistPage {...routerProps} />}/>
+                        <Route exact path="/" component={FrontFeaturedContainer}/>
+                        </Switch>
+                    </div>
+                </BrowserRouter>
             </div>
         )
     }
@@ -27,16 +36,10 @@ class Page extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        currentPage: state.userImages.currentPage
+        userImages: state.userImages.allUserImages,
+        firstThree: state.userImages.threeUserImages
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        fetchUserImages: () => dispatch(fetchUserImages()),
-        changePage: (currentPage) => dispatch(changePage(currentPage)),
-        setUserImage: (currentUserImage) => dispatch(setUserImage(currentUserImage))
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Page)
+export default connect(mapStateToProps)(Page)

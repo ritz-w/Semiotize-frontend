@@ -2,18 +2,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
 import Page from './containers/Page'
-import { fetchUserImages } from './actions/userImageActions'
+import { fetchUserImages, fetchFirstThree } from './actions/userImageActions'
+import { fetchArtists } from './actions/artistsActions'
+
+
 
 class App extends Component {
 
   componentDidMount() {
-    this.props.fetchUserImages()
+    this.props.fetchFirstThree()
+    .then(() => this.props.fetchUserImages())
+    .then(() => this.props.fetchArtists()
+    )
   }
 
   render() {
     return (
       <div className="App">
-        <Page />
+        <Page fetchFirstThree={this.props.fetchFirstThree} />
       </div>
     );
   }
@@ -21,13 +27,15 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    userImages: state.userImages
+    userImages: state.userImages.allUserImages
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchUserImages: () => dispatch(fetchUserImages())
+    fetchUserImages: () => dispatch(fetchUserImages()),
+    fetchArtists: () => dispatch(fetchArtists()),
+    fetchFirstThree: () => dispatch(fetchFirstThree())
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App);

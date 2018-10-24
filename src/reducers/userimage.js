@@ -1,4 +1,4 @@
-export default (state = {allUserImages: [], currentImage: "", currentPage: "Front", isLoading: false}, action) => {
+export default (state = {allUserImages: [], threeUserImages: [], threeLoading: false, isLoading: false}, action) => {
     switch (action.type) {
       case "LOADING_USER_IMAGES" :
       console.log(action)
@@ -6,12 +6,12 @@ export default (state = {allUserImages: [], currentImage: "", currentPage: "Fron
       case "FETCH_USER_IMAGES" :
       console.log(action)
       return state = {...state, allUserImages: action.payload, isLoading: false};
-      case "SET_USER_IMAGE" :
+      case "LOADING_THREE_USER_IMAGES" :
       console.log(action)
-      return state = {...state, currentImage: action.payload};
-      case "CHANGE_PAGE" :
+      return state = {...state, threeLoading: true};
+      case "FETCH_THREE_USER_IMAGES" :
       console.log(action)
-      return state = {...state, currentPage: action.payload};
+      return state = {...state, threeUserImages: action.payload, threeLoading: false};
       default :
       return state;
     }
