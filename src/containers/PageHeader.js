@@ -129,7 +129,7 @@ class PageHeader extends Component {
                         
                     </Modal.Content>
                     </Modal>
-                    <div className="dropdown">
+                    <div className="dropdown" id="menu-box">
                         <button className="menu-button">Menu ▾ </button>
                         <div className="dropdown-content">
                             <Link to='/'><div className="menu-element"><p>Home</p></div></Link>
