@@ -63,9 +63,10 @@ class PageHeader extends Component {
 
     handleImageSubmit = (e) => {
         e.preventDefault()
-        this.setState({isLoading: true}, () => this.setState({uploadingMessage: "Matching in database..."}))
+        this.setState({isLoading: true})
         this.handleImageUpload(this.state.userFilePath)
         .then(() => {
+            this.setState({uploadingMessage: "Matching in database..."})
             let setImage = this.state.userFilePath !== "" ? this.state.uploadedFileCloudinaryUrl : this.state.userImageURL
             fetch("http://localhost:3000/api/v1/user_images/upload", {
                 method: 'POST',
@@ -83,7 +84,7 @@ class PageHeader extends Component {
                 return res.json()
             })
             .then(data => this.props.history.push(`/gallery/${data.id}`))
-            .then(() => this.props.fetchFirstThree())
+            .then(() => this.props.fetchUserImages())
         })
     }
 

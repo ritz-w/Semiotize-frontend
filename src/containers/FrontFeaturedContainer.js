@@ -54,7 +54,7 @@ class FrontFeaturedContainer extends Component {
                         <p>This project was inspired by the role of semiotics in understanding the history of photography.</p><br />
                         <p>It takes a photograph that you upload, and using image recognition technology, matches it to over 500 works of contemporary and historic photography, finding common signs and symbols that have been used. In doing so, you can compare how the objects and motifs in your photograph have been used by other photographers in different styles, time periods, and contexts.</p>
                         <br />
-                        <p>We invite you to consider the generative spontaneity of artificial intelligence - even when unexpected results are returned, can you see a connection? </p>
+                        <p>The project invites users to consider the generative spontaneity of artificial intelligence - even when unexpected results are returned, can you see a connection? </p>
                     </div>)
                     : null }
                 <h2 className="section-header">Most Recent Uploads</h2>

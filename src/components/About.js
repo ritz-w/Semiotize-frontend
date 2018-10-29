@@ -9,6 +9,7 @@ const About = (props) => {
             <h4>Art Collections</h4> 
             <p>National Network of Museums - Grand Palais (La Réunion des musées nationaux - Grand Palais (Rmn-GP))</p>
             <p>San Francisco Museum of Modern Art</p>
+            <p>Brooklyn Museum</p>
             <p>Finnish National Gallery</p>
             <p>Harvard Art Museums</p>
             <p>San Francisco Museum of Modern Art</p>

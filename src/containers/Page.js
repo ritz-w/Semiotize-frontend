@@ -18,7 +18,7 @@ class Page extends Component {
             <div className="page-container">
                 <BrowserRouter>
                     <div>
-                    <PageHeader fetchFirstThree={this.props.fetchFirstThree} />
+                    <PageHeader fetchUserImages={this.props.fetchUserImages} />
                         <Switch>
                         <Route exact path="/gallery" component={() => <GalleryContainer userImages={this.props.userImages} />}/>
                         <Route exact path={`/gallery/:imgId`} component={(routerProps) => <PresentationContainer userImages={this.props.userImages} {...routerProps}/>}/>

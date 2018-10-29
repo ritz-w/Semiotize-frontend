@@ -3,9 +3,9 @@ import "./Spinner.scss"
 
 const Spinner = (props) => {
     return (
-        <div class="wrapper">
-            <div class="flex-center">
-                <div class="content">
+        <div className="wrapper">
+            <div className="flex-center">
+                <div className="content">
                     <svg className="spinner-canvas" viewBox="0 0 800 300">
 
                         <symbol id="s-text">
@@ -14,11 +14,11 @@ const Spinner = (props) => {
                             </text>
                         </symbol>
 
-                <use xlinkHref="#s-text" class="text"></use>
-                <use xlinkHref="#s-text" class="text"></use>
-                <use xlinkHref="#s-text" class="text"></use>
-                <use xlinkHref="#s-text" class="text"></use>
-                <use xlinkHref="#s-text" class="text"></use>
+                <use xlinkHref="#s-text" className="text"></use>
+                <use xlinkHref="#s-text" className="text"></use>
+                <use xlinkHref="#s-text" className="text"></use>
+                <use xlinkHref="#s-text" className="text"></use>
+                <use xlinkHref="#s-text" className="text"></use>
 
 
                     </svg>

@@ -19,7 +19,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Page fetchFirstThree={this.props.fetchFirstThree} />
+        <Page fetchUserImages={this.props.fetchUserImages} />
       </div>
     );
   }
