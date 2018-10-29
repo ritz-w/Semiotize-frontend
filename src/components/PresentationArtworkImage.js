@@ -12,7 +12,7 @@ export default class PresentationArtworkImage extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:3000/api/v1/motifs')
+        fetch('https://semiotize-backend.herokuapp.com/api/v1/motifs')
         .then(res => res.json())
         .then(data => this.setState({allMotifs: data}))
     }
