@@ -68,7 +68,7 @@ class PageHeader extends Component {
         .then(() => {
             this.setState({uploadingMessage: "Matching in database..."})
             let setImage = this.state.userFilePath !== "" ? this.state.uploadedFileCloudinaryUrl : this.state.userImageURL
-            fetch("http://localhost:3000/api/v1/user_images/upload", {
+            fetch("https://semiotize-backend.herokuapp.com/api/v1/user_images/upload", {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(
