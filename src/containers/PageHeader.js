@@ -65,7 +65,8 @@ class PageHeader extends Component {
         e.preventDefault()
         this.setState({isLoading: true})
         this.handleImageUpload(this.state.userFilePath)
-        .then(() => {
+        .then((res) => {
+            console.log(res)
             this.setState({uploadingMessage: "Matching in database..."})
             let setImage = this.state.userFilePath !== "" ? this.state.uploadedFileCloudinaryUrl : this.state.userImageURL
             fetch("https://semiotize-backend.herokuapp.com/api/v1/user_images/upload", {
@@ -79,6 +80,7 @@ class PageHeader extends Component {
                 })
             })
             .then(res => {
+                console.log(res)
                 this.setState({isLoading: false}, () => this.setState({uploadingMessage: "Matching Completed."}))
                 this.handleClose()
                 return res.json()
