@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './FeaturedCard.css'
 import { Grid, Image } from 'semantic-ui-react'
-
+import { Link } from 'react-router-dom'
 
 
 export default class FeaturedCard extends Component {
